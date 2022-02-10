@@ -1,10 +1,20 @@
+import os
+
+html_report = {'title' : 'newPytest HTML Reporter', 'name' : 'newPYTEST REPORT'}
+if os.environ.get('report_title') is not None:
+    html_report['title'] = os.environ.get('report_title')
+if os.environ.get('report_name') is not None:
+    html_report['name'] = os.environ.get('report_name')
+
 def html_template():
-    return """
+    html_report_template = """
 	<!DOCTYPE doctype html>
     <html lang="en">
         <head>
             <link href="https://i.imgur.com/UwGDzXn.png" rel="shortcut icon" type="image/x-icon" />
-            <title>Pytest HTML Reporter</title>
+    """
+    html_report_template += '<title>' + html_report['title'] + '</title>'
+    html_report_template += """
             <meta charset="utf-8" />
             <meta content="width=device-width, initial-scale=1" name="viewport" />
             <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -14,7 +24,7 @@ def html_template():
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
             <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-            
+
             <!-- Bootstrap core Datatable-->
             <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
@@ -28,7 +38,7 @@ def html_template():
                     font-family: -apple-system, sans-serif;
                     background-color: #eeeeee;
                 }
-                
+
                 .sidenav {
                     height: 100%;
                     width: 220px;
@@ -39,7 +49,7 @@ def html_template():
                     background-color: #211f1f;
                     overflow-x: hidden;
                 }
-                
+
                 .sidenav a {
                     padding: 12px 10px 8px 12px;
                     text-decoration: none;
@@ -47,11 +57,11 @@ def html_template():
                     color: #a2a2a2;
                     display: block;
                 }
-                
+
                 .main {
                     padding-top: 10px;
                 }
-                
+
                 @media screen and (max-height: 450px) {
                     .sidenav {
                         padding-top: 15px;
@@ -60,7 +70,7 @@ def html_template():
                         font-size: 18px;
                     }
                 }
-                
+
                 .wrimagecard {
                     margin-top: 0;
                     margin-bottom: 0.6rem;
@@ -68,7 +78,7 @@ def html_template():
                     transition: all 0.3s ease;
                     background-color: #f8f9fa;
                 }
-                
+
                 .rowcard {
                     # padding-top: 10px;
                     box-shadow: 12px 15px 20px 0px rgba(46, 61, 73, 0.15);
@@ -76,7 +86,7 @@ def html_template():
                     transition: all 0.3s ease;
                     # background-color: white;
                 }
-                
+
                 .tablecard {
                     background-color: white;
                     font-size: 14px;
@@ -84,7 +94,7 @@ def html_template():
                 tr {
                     height: 40px;
                 }
-                
+
                 .dt-buttons {
                     margin-left: 5px;
                 }
@@ -92,7 +102,7 @@ def html_template():
                     text-align:center;
                     vertical-align: middle;
                 }
-                
+
                 .loader {
                     position: fixed;
                     left: 0px;
@@ -102,14 +112,14 @@ def html_template():
                     z-index: 9999;
                     background: url('https://i.imgur.com/n3Tcoxz.gif') 50% 50% no-repeat rgb(249, 249, 249);
                 }
-                
+
                 .card-wrapper {
                   background-color: #f5f5f5;
                   # height: 100vh;
                   # width: 100vw;
                   display: grid;
                 }
-                
+
                 .card {
                   background-color: #ffff;
                   display: flex;
@@ -118,18 +128,18 @@ def html_template():
                   border-radius: 4px;
                   box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
                 }
-                
+
                 .card__content {
                   padding: 1.5rem;
                   font-family: sans-serif;
                 }
-                
+
                 .card__header {
                   display: flex;
                   flex-direction: row;
                   justify-content: space-between;
                 }
-                
+
                 .header__title {
                   font-size: 1.5rem;
                   font-weight: 600;
@@ -138,37 +148,37 @@ def html_template():
                   padding-left: 5%;
                   color: dimgrey;
                 }
-                
+
                 .header__date {
                   font-size: 1.3rem;
                   font-family: sans-serif;
                   padding-left: 5%;
                   color: darkgray;
                 }
-                
+
                 .total__count {
                   font-size: 5.3rem;
                   font-family: sans-serif;
                   color: black;
                   padding-top: 8%;
                 }
-                
+
                 .total_count__label {
                   font-size: 1.3rem;
                   font-family: sans-serif;
                   padding-left: 12%;
                   color: darkgray;
                 }
-                
+
                 .header__title-icon {
                   font-size: 1.6rem;
                   color: #ccc;
                 }
-                
+
                 .header__title-icon:hover {
                   color: rgba(54, 162, 235, 1);;
                 }
-                
+
                 .header__button {
                   border-radius: 50px;
                   background-color: #f5f5f5;
@@ -176,22 +186,22 @@ def html_template():
                   border: none;
                   margin-left: 1rem;
                 }
-                
+
                 .header__button:hover {
                   background-color: rgba(54, 162, 235, 0.25);
                 }
-                
+
                 .chart {
                   padding: 2.0rem 60;
                 }
-                
+
                 .card__footer {
                   display: flex;
                   flex-direction: row;
                   justify-content: space-between;
                   margin-bottom: 5%;
                 }
-                
+
                 .archive-card__footer {
                   display: flex;
                   flex-direction: row;
@@ -201,41 +211,41 @@ def html_template():
                   padding-top: 5.5%;
                   padding-left: 5%;
                 }
-                
+
                 .card__footer-section {
                   text-align: center;
                   width: 33%;
                   # border-right: 1px solid #ccc;
                 }
-                
+
                 .archive-card__footer-section {
                   text-align: center;
                 }
-                
+
                 .card__footer-section:nth-child(3) {
                   border-right: none;
                 }
-                
+
                 .footer-section__data {
                   font-size: 2.2rem;
                   font-weight: 900;
                 }
-                
+
                 .archive-footer-section__data {
                   font-size: 4.2rem;
                   font-weight: 700;
                 }
-                
+
                 .footer-section__label {
                   text-transform: uppercase;
                   color: slategrey;
                   font-size: 9pt;
                 }
-                
+
                 .list-group-item {
                     border: 5px solid rgba(0,0,0,0);
                 }
-                
+
                 .list-group {
                     height: 100%;
                     background-color: #ffff;
@@ -245,7 +255,7 @@ def html_template():
                     border-radius: 4px;
                     box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
                 }
-                
+
                 .archive-body {
                     height: 100%;
                     background-color: #ffff;
@@ -254,40 +264,40 @@ def html_template():
                     box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
                     margin-bottom: 0.8%;
                 }
-                
+
                 .archive-header {
                     padding-top: 4%;
                     padding-left: 5%;
                     color: gray;
                 }
-                
+
                 .archive-date {
                     padding-top: 2%;
                     padding-left: 5%;
                     color: gray;
                 }
-                
+
                 .archive-chart-container {
                     margin-top: 6%;
                     height: 50%;
                     width: 50%;
                     margin-left: 40%;
                 }
-                
+
                 .statistic-section-pass {
                      padding-top: 51px;
                      padding-bottom: 45px;
                      background: #00c6ff;  /* fallback for old browsers */
                      background: linear-gradient(to right, #333333, #2b4440);
                 }
-                
+
                 .statistic-section-fail {
                      padding-top: 51px;
                      padding-bottom: 45px;
                      background: #00c6ff;  /* fallback for old browsers */
                      background: linear-gradient(to right, #333333, #442b2b);
                 }
-                
+
                 .count-title {
                     font-size: 50px;
                     font-weight: normal;
@@ -297,7 +307,7 @@ def html_template():
                       font-weight: bold;
                     color: #fff;
                 }
-                
+
                 .stats-text {
                     font-size: 15px;
                     font-weight: normal;
@@ -308,14 +318,14 @@ def html_template():
                       text-transform: uppercase;
                       font-weight: bold;
                 }
-                
+
                 .stats-line-black {
                     margin: 12px auto 0;
                     width: 55px;
                     height: 2px;
                     background-color: #fff;
                 }
-                
+
                 .stats-icon {
                       font-size: 35px;
                       margin: 0 auto;
@@ -323,13 +333,13 @@ def html_template():
                     display: table;
                     color: #fff;
                 }
-                
+
                 @media (max-width: 992px) {
                     .counter {
                         margin-bottom: 40px;
                     }
                 }
-                
+
                 .archive-build-row {
                     right: 0.5%;
                     width: 200px;
@@ -339,12 +349,12 @@ def html_template():
                     overflow-y: scroll;
                     overflow-x: hidden;
                 }
-                
+
                 .loading {
                     height: 200px;
                     padding-top: 35px;
                 }
-                
+
                 .loading p {
                     font-size: 1.1rem;
                     padding-top: 5%;
@@ -352,16 +362,16 @@ def html_template():
                     color: dimgrey;
                     float: right;
                 }
-                
+
                 .loading .icon {
                     padding-right: 15px;
                 }
-                
+
                 .loading .percentage {
                     float: right;
                     padding: 6px 35px 0 0;
                 }
-                
+
                 .loading .progress-bar {
                     height: 20px;
                     background: #50597b;
@@ -369,27 +379,27 @@ def html_template():
                     margin: 0 auto;
                     margin-top: -4%;
                 }
-                
+
                 .arrow {
                     left: 50%;
                     color: #403b3b;
                 }
-                
+
                 .tooltip {
                     position: relative;
                     display: inline-block;
                     margin: 10px 20px;
                     opacity: 1;
                 }
-                
+
                 .tooltip-inner {
                     background-color: #403b3b;
                 }
-                
+
                 .bs-tooltip-top .arrow::before {
                     border-top-color: #403b3b;
                 }
-                
+
                 .suite-highlights-header {
                     font-size: 0.95rem;
                     padding-top: 5%;
@@ -397,7 +407,7 @@ def html_template():
                     color: dimgrey;
                     float: right;
                 }
-                
+
                 .desc-video h2 {
                      margin-top: 0px;
                 }
@@ -492,7 +502,7 @@ def html_template():
         </div>
         <div class="main col-md-9 ml-sm-auto col-lg-10 px-4" style="height: 100%;">
             <div class="tabcontent" id="dashboard">
-                
+
                 <div class="row rowcard">
                     <div class="col-md-6 card" style="max-width: 49%;">
                       <div style="width:100%;height:500px;text-align: center;">
@@ -506,7 +516,9 @@ def html_template():
                           <div>
                               <div class="card__header">
                                 <div class="header__title">
-                                  PYTEST REPORT
+    """
+    html_report_template += html_report['name']
+    html_report_template += """
                                 </div>
                               </div>
                               <div class="card__header">
@@ -559,7 +571,7 @@ def html_template():
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="col-md-6 card" style="margin-left: 0.75%;">
                       <div style="width:100%;height:500px;text-align: center;">
                         <div class="card__content">
@@ -571,9 +583,9 @@ def html_template():
                         </div>
                       </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="row rowcard" style="padding-top: 0.8%;">
                     <div class="col-md-8 card border-right">
                         <div style="font-size: 1.9rem; color: darkgrey; margin-bottom: -4%;">
@@ -606,7 +618,7 @@ def html_template():
                     </div>
                 </div>
                 <hr/>
-                
+
                 <div class="row">
                     <div class="col-md-12" style="width:auto;">
                         <p class="text-muted" style="text-align:center;font-size:9px"> <a href="https://github.com/prashanth-sams/pytest-html-reporter" target="_blank">pytest-html-reporter</a>
@@ -667,7 +679,7 @@ def html_template():
             <div id="list-example" class="list-group archive-build-row">
                 __archive_status__
             </div>
-        
+
             <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
                 __archive_body_content__
             </div>
@@ -858,13 +870,13 @@ def html_template():
                 number = [1, 2, 3, 4, 5];
                 container = ['23%', '20%', '15%', '12%', '7%'];
                 label = ['-24%', '-2%', '15%', '27%', '31%'];
-                
+
                 zipped = container.map((x, i) => [x, label[i]]);
                 var x = parseInt(total);
-                
+
                 acontainer = zipped[(x.toString().length)-1][0];
                 alabel = zipped[(x.toString().length)-1][1];
-                
+
                 document.getElementById(`archive-container-${i}`).style.paddingLeft = `${acontainer}`;
                 document.getElementById(`archive-label-${i}`).style.marginLeft = `${alabel}`;
             }
@@ -970,32 +982,32 @@ def html_template():
                   }
                 }
             });
-            
+
             Chart.pluginService.register({
                 beforeDraw: function(chart) {
                     if (chart.config.options.doughnut_chart) {
                         var width = chart.chart.width,
                             height = chart.chart.height,
                             ctx = chart.chart.ctx;
-            
+
                         ctx.restore();
                         var fontSize = (height / 114).toFixed(2);
                         ctx.font = fontSize + "em sans-serif";
                         ctx.textBaseline = "middle";
-                        
+
                         var passPercent = Math.round((__pass__ / __total__) * 100)
-                    
+
                         var text = passPercent + "%",
                             textX = Math.round((width - ctx.measureText(text).width) / 2),
                             textY = height / 2;
-                    
+
                         ctx.fillText(text, textX, textY);
                         ctx.save();
                     }
                   }
                 });
         </script>
-        
+
         <script>
             for(var i=0; i<=__archive_count__; i++) {
                 var MeSeContext = document.getElementById("archive-chart-"+i).getContext("2d");
@@ -1007,9 +1019,9 @@ def html_template():
                 var xfail = archives[i].xfail;
                 var error = archives[i].error;
                 var total = archives[i].total;
-                
+
                 archiveTotalCase(total, i)
-                
+
                 var MeSeData = {
                     labels: ["PASS", "FAIL", "SKIP", "XPASS", "XFAIL", "ERROR"],
                     datasets: [{
@@ -1020,7 +1032,7 @@ def html_template():
                         hoverBorderColor: ["#9bca6d", "#fd8a89", "#ffcf4c", "#abaaaa", "#f26fdb", "#b13635"]
                     }]
                 };
-                
+
                 var MeSeChart = new Chart(MeSeContext, {
                     type: 'horizontalBar',
                     data: MeSeData,
@@ -1054,7 +1066,7 @@ def html_template():
                 });
             }
         </script>
-        
+
         <script>
             var ctx = document.getElementById('groupBarChart').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -1210,13 +1222,14 @@ def html_template():
             function failureScreenshots() {
                 $('.video').hover(function (e) {
                   var hoverText = $(this).siblings('.text-desc').html();
-                
+
                   $(e.target).closest('.bg-highlight').find('.below-desc').first().html(hoverText);
                 }, function (e) {
                   $(e.target).closest('.bg-highlight').find('.below-desc').first().html('');
                 });
             }
         </script>
-        
+
     </body>
 	"""
+    return html_report_template
