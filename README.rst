@@ -33,6 +33,7 @@ pytest-html-reporter
 Features
 ------------
 - Generic information
+
     - Overview
     - Trends
     - Suite Highlights
@@ -60,12 +61,16 @@ either one of them if not needed::
 
 ..
 
-        Custom path and filename
+        Custom path, filename, and title
 
 Add ``--html-report`` tag followed by path location and filename to customize the report location and filename::
 
     $ pytest tests/ --html-report=./report
     $ pytest tests/ --html-report=./report/report.html
+
+Add ``--title`` tag followed by the report title::
+
+    $ pytest tests/ --html-report=./report --title='PYTEST REPORT'
 
 ..
 
@@ -74,7 +79,7 @@ Add ``--html-report`` tag followed by path location and filename to customize th
 Alternate option is to add this snippet in the ``pytest.ini`` file::
 
     [pytest]
-    addopts = -vs -rf --html-report=./report
+    addopts = -vs -rf --html-report=./report --title='PYTEST REPORT'
 
 **Note:** If you fail to provide ``--html-report`` tag, it consider your project's home directory as the base
 
@@ -87,6 +92,9 @@ Import ``attach`` from the library and call it with the selenium command as give
 
     ...
     attach(data=self.driver.get_screenshot_as_png())
+
+.. image:: https://img.shields.io/badge/Attach_screenshot_snippet-000?style=for-the-badge&logo=ko-fi&logoColor=white
+   :target: https://gist.github.com/prashanth-sams/f0cc2102fc3619b11748e0cbda22598b
 
 
 .. image:: https://i.imgur.com/1HSYkdC.gif
